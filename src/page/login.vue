@@ -84,19 +84,7 @@
   text-align: center;
   color:#bbb;
 }
-  /*.el-icon-refresh{*/
 
-    /*transition: All 0.4s ease-in-out;*/
-    /*-webkit-transition: All 0.4s ease-in-out;*/
-    /*-moz-transition: All 0.4s ease-in-out;*/
-    /*-o-transition: All 0.4s ease-in-out;*/
-  /*}*/
-  /*.el-icon-refresh:hover{*/
-    /*transition: All 0.4s ease-in-out;*/
-    /*-webkit-transition: All 0.4s ease-in-out;*/
-    /*-moz-transition: All 0.4s ease-in-out;*/
-    /*-o-transition: All 0.4s ease-in-out;*/
-  /*}*/
   .rotateBox {
     position: absolute;
     left: 273px;

@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import surveyContant from  '@/page/surveyContant'
 import login from '@/page/login'
 import historyCase from '@/page/historyCase'
+import message from '@/page/message'
 Vue.use(Router);
 
 export default new Router({
@@ -28,6 +29,10 @@ export default new Router({
     {
       path: '/',
       component: login
+    },
+    {
+      path: '/message',
+      component: message
     },
     {
       path: '/historyCase',

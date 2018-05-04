@@ -165,6 +165,152 @@
     line-height: 20px;
   }
 
+
+
+
+
+
+ .send-documents{
+    position:absolute;
+    left:200px;
+    top:10px;
+    overflow: hidden;
+  }
+  .sent-but{
+    float:left;
+    cursor:pointer;
+    margin-right:30px;
+    width:100px;
+    height:30px;
+    background-color:green;
+    border:1px solid green; 
+    line-height: 30px;
+    text-align: center;
+    color:#fff;
+    border-radius: 5px;
+  }
+  .select-wrap{
+    float:left;
+    margin-top:-2px;
+  }
+
+  .claim-wrap{
+    background: rgba(0,0,0,0.3);
+    width:100%;
+    position: fixed;
+    overflow: scroll;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 201;
+  }
+  .szc-wrap{
+     background: rgba(0,0,0,0.3);
+    width:100%;
+    position: fixed;
+    overflow: scroll;
+    min-height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 201;
+  }
+  .czm-wrap{
+    background: rgba(0,0,0,0.3);
+    width:100%;
+    position: fixed;
+    overflow: scroll;
+    min-height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 201;
+  }
+  .czm-content{
+    width: 500px;
+    margin: 6vh;
+    margin-left:35%;
+    background: #fff;
+    margin-top: 20vh;
+    position: relative;
+  }
+  .claim-content{
+    width: 650px;
+    margin: 6vh;
+    margin-left:50%;
+    background: #fff;
+    margin-top: 20vh;
+    height:500px;
+    overflow: scroll;
+    position: relative;
+  }
+  .top-wrap{
+    overflow: hidden;
+    border-bottom:1px solid #b6b6b6;
+  }
+  .top-wrap h4{
+    float:left;
+    font-size: 18px;
+    line-height: 70px;
+    padding-left:20px;
+  }
+  .xmark{
+   float:right;
+    font-size: 42px;
+  }
+  .che-one{
+    padding:20px 0px 20px 80px;
+  
+  }
+  .part-wrap{
+    overflow: hidden;
+  }
+  .part{
+    width:100px;
+    height:40px;
+    line-height: 40px;
+    text-align:center;
+    border:1px solid #b6b6b6;
+    float:left;
+    margin-right:30px;
+    margin-bottom:20px;
+  }
+  .part span{
+    display:none;
+  }
+  .input-box input{
+    width:200px;
+    height:30px;
+    border:1px solid #b6b6b6;
+    background-color:#fff; 
+  }
+  .plate{
+     padding-bottom:20px;
+  }
+  .checkbox-wrap{
+    padding-left:30px;
+    padding-bottom:30px;
+  }
+  .but-czm{
+     width:300px;
+     margin-left:100px;
+     margin-bottom:20px;
+  }
+  .but-claim{
+    width:300px;
+    margin-left:180px;
+    margin-bottom:20px;
+  }
+  .checkoutGreen{
+    color:#fff;
+    background-color:green;
+  }
+  .checkoutWhite{
+     color:#000;
+    background-color:#fff;
+  }
+  .czxm{
+    margin-left:10px;
+    color:#2fab3b;
+  }
 </style>
 <template>
   <div class="caseDetail">
@@ -172,6 +318,95 @@
       <span @click="closCaseDetail" class="right closCaseDetail">×</span>
       <div class="oneMonitor clear">
         <h4 class="dialogTitle">案件详情</h4>
+
+
+
+                <div class="send-documents">
+                 <!--  <span class="sent-but" @click="setElectronic">发送单证</span> -->
+                  <div class="select-wrap">
+                     <el-checkbox-group v-model="checkedTypes" @change="handleCheckedChange">
+                        <!--  <el-checkbox v-for="city in cityOptions" :label="city" :key="city">{{city}}</el-checkbox> -->
+                         <el-checkbox label="电子查勘单" disabled ></el-checkbox>
+                         <el-checkbox label="转赔授权书" :disabled="selectStateOne"></el-checkbox>
+                         <el-checkbox label="快赔协议" :disabled="selectStateTwo"></el-checkbox>
+                     </el-checkbox-group>
+                  </div>
+                  <span class="sent-but" @click="setElectronic">发送单证</span>
+                  <span class="sent-but" @click="setDetails">查看</span>
+                  <!-- <a :href="url" class="sent-but" @click="setDetails" target="_blank">查看</a> -->
+                 
+              </div>
+
+               <!-- 理赔信息弹框 -->
+         <div class="claim-wrap hide">
+             <div class="claim-content">
+               <div class="top-wrap">
+                   <h4>请完善理赔信息</h4>
+                   <span @click="closeClaimDiolag" class="xmark">×</span>
+               </div>
+               
+               <div class="che-one " v-for="(item,index) in ImgInfo">
+                    <p class="plate">{{item.originalVehicleLicenseNo}}</p>
+                    <div class="part-wrap part-wrap-one" >
+                       <div class="part" @click="part($event,item)" >正前部<span>1</span></div>
+                       <div class="part" @click="part($event,item)" >左前部<span>2</span></div>
+                       <div class="part" @click="part($event,item)" >右前部<span>3</span></div>
+                       <div class="part" @click="part($event,item)" >左中部<span>4</span></div>
+                       <div class="part" @click="part($event,item)" >正后部<span>5</span></div>
+                       <div class="part" @click="part($event,item)" >左后部<span>6</span></div>
+                       <div class="part" @click="part($event,item)" >右后部<span>7</span></div>
+                       <div class="part" @click="part($event,item)" >右中部<span>8</span></div>
+                    </div>
+                    <div class="input-box">
+                          <span>赔付金额</span>
+                          <input type="text" name="" @blur="one_part($event,index)">
+                     </div>
+               </div>
+               <div class="checkbox-wrap">
+               <el-checkbox-group v-model="checkedCities"  @change="handleCheckedCitiesChange">
+                     <el-checkbox v-for="city in cityOptions" :label="city" :key="city">{{city}}</el-checkbox>
+               </el-checkbox-group>
+               </div>
+               <el-button type="primary" class="but-claim" @click="claimButton">确定</el-button>
+             </div>
+         </div>
+             <!-- 标车姓名弹框 -->
+         <div class="czm-wrap hide">
+             <div class="czm-content">
+               <div class="top-wrap">
+                   <h4>请完善理信息</h4>
+                   <span @click="closeCzmDiolag" class="xmark">×</span>
+               </div>
+               
+               <div class="che-one">
+                     <el-input placeholder="请输入姓名" clearable @blur="czmInput" maxlength="12"></el-input>
+               </div>
+         
+               <el-button type="primary" class="but-czm" @click="czmButton">确定</el-button>
+             </div>
+         </div>
+             <!-- 三者车姓名弹框 -->
+         <div class="szc-wrap hide">
+             <div class="czm-content">
+               <div class="top-wrap">
+                   <h4>请完善理信息</h4>
+                   <span @click="closeSzcDiolag" class="xmark">×</span>
+               </div>
+               
+               <div class="che-one">
+                     <el-input placeholder="请输入手机号" @blur="szcInput"></el-input>
+               </div>
+         
+               <el-button type="primary" class="but-czm" @click="szcButton">确定</el-button>
+             </div>
+         </div>
+
+
+
+
+
+
+
         <div class="detailContent">
           <div class="caseInfo" id="caseInfo">
               <div class="caseInfoBox">
@@ -207,7 +442,7 @@
             <div class="aimheader">标的车</div>
             <div class="aimInfo">
               <table class="table" border="0" cellspacing="0" cellpadding="0">
-                <tr><td>车牌号:</td><td>{{caseDetailData.reportVehicleInfo.vehicleLicenseNo}}</td><td>车主姓名:</td><td>{{caseDetailData.reportVehicleInfo.reporterName}}</td><td>车主电话: </td><td>{{caseDetailData.reportVehicleInfo.reporterPhoneNo}}</td></tr>
+                <tr><td>车牌号:</td><td>{{caseDetailData.reportVehicleInfo.vehicleLicenseNo}}</td><td>车主姓名:</td><td>{{caseDetailData.reportVehicleInfo.reporterName}}<span class="czxm" @click="czxm($event,caseDetailData.reportVehicleInfo.id)">编辑</span></td><td>车主电话: </td><td>{{caseDetailData.reportVehicleInfo.reporterPhoneNo}}</td></tr>
                 <tr><td>保险公司:</td><td> {{caseDetailData.reportVehicleInfo.insuranceCompanyName}}</td><td>保险公司城市： </td><td>{{caseDetailData.reportVehicleInfo.insuranceCompanyCity}}</td><td> 处理机构：</td><td>{{caseDetailData.reportVehicleInfo.processOrgName}}</td></tr>
               </table>
               <div class="aimCarImg" v-if="totalCountAim != 0">
@@ -234,7 +469,7 @@
             <div class="aimheader">三者车({{item.vehicleLicenseNo}})<span style="color:#fff;padding-right:10px;cursor: pointer;" @click="savethirdCar(item.vehicleLicenseNo)" class="right">保存</span></div>
             <div class="aimInfo">
               <table class="table" border="0" cellspacing="0" cellpadding="0">
-                <tr><td>车牌号:</td><td>{{item.vehicleLicenseNo}}</td><td>车主电话: </td><td v-if="item.contactPhoneNo == null || item.contactPhoneNo == ''"> <input class="thirdphone" type="tel" maxlength="11" style="height:35px;" value="暂无"/></td><td v-else><input  maxlength="11" class="thirdphone" style="height:35px;" type="tel" :value="item.contactPhoneNo"/></td></tr>
+                <tr><td>车牌号:</td><td>{{item.vehicleLicenseNo}}</td><td>车主电话: </td><td v-if="item.contactPhoneNo == null || item.contactPhoneNo == ''"> <input class="thirdphone" type="tel" maxlength="11" style="height:35px;" value="暂无"/><span class="czxm" @click="szcPhone($event,item.id,index)">编辑</span></td><td v-else><input  maxlength="11" class="thirdphone" style="height:35px;" type="tel" :value="item.contactPhoneNo"/><span class="czxm" @click="szcPhone($event,item.id,index)">编辑</span></td></tr>
               </table>
               <div class="aimCarImg thirdImg" v-if="item.thirdCarImg.length!=0">
                 <ul class="suibian">
@@ -305,6 +540,25 @@ import axios from 'axios'
 export default {
   data() {
       return{
+        url:"",
+        id:"",
+        szcInputIndex:"",
+        szcInputId:"",
+        czmInputId:"",
+        szcInputValue:"",
+        czmInputValue:"",
+        isTargetSign: true,
+        isThirdSign: false,
+        claimList:[],
+        signatureList:[],
+        claimMoneyOne:{},
+        ImgInfo: [],
+        checkedCities:[""],
+        cityOptions:["标的签字","三者签字"],
+        checkedTypes:["电子查勘单"],
+        selectStateOne:false,
+        selectStateTwo:false,
+        ///////////////////
         beizhuActive: false,
         showOldActive: false,
         currentPageNoAim: 1,//当前页码
@@ -392,6 +646,7 @@ export default {
         this.getCasePhones(1,4,this.caseDetailData.reportVehicleInfo.vehicleLicenseNo,this.surveyNo,"")
        }
         this.accidentVehicleInfos = this.caseDetailData.accidentVehicleInfos;
+        this.getImgInfo();
        if(this.accidentVehicleInfos !== null){
 
          for(let i in this.accidentVehicleInfos){
@@ -413,6 +668,565 @@ export default {
 //      caseOrder: string
     },
       methods: {
+        ////////////////////////////////////////////
+           szcPhone(e,id,key){
+            this.szcInputIndex = key;
+            // alert(key)
+            this.szcInputId = id;
+           $(".szc-wrap").removeClass("hide");
+         },
+          czxm(e,id){
+            this.czmInputId = id;
+           $(".czm-wrap").removeClass("hide");
+         },
+           modifyData(arr){
+          for(var i = 0; i < arr .length; i++){
+              arr[i] =  arr[i].substr(0,arr[i].length-1)
+          }
+          return arr
+        },
+          szcButton(){
+            // alert(this.szcInputValue)
+            if(this.szcInputValue.length == 0){
+                this.$message({
+                  showClose: true,
+                  message: '请填写手机号',
+                  type: 'error'
+                });
+            }else{
+              var data = [{
+                  "surveyBaseInfoId":this.szcInputId,
+                  "phone": this.szcInputValue
+              }]
+              console.log(this.ajaxUrl,3333333333333)
+              ///boot-pub-survey-manage//survey_base/v1/modify
+             axios.post(this.ajaxUrl+"/survey_base/v1/modify",data).then(response => {
+               if(response.status == 200){
+                //this.goCaseDetail(this.id);
+                 $(".szc-wrap").addClass("hide");
+                 // alert(this.szcInputIndex)
+                 this.thirdCar[this.szcInputIndex].contactPhoneNo = this.szcInputValue
+                 // $(".orderSelectDialog").addClass("hide");
+                 this.open6();
+                 // window.location.reload();
+               }
+            }, err => {
+              
+            })
+            .catch((error) => {
+            
+            })
+               //alert("jiekou")
+            }
+         },
+           szcInput(e){
+           var phone = e.target.value;
+           var r = /^((0\d{2,3}-\d{7,8})|(1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}))$/;
+          if(e.target.value.length == 0){
+            this.szcInputValue = "";
+            this.$message({
+              showClose: true,
+              message: '请填写手机号',
+              type: 'error'
+            });
+          }else{
+            if(!r.test(phone)){
+                 this.szcInputValue = "";
+                 this.$message({
+                  showClose: true,
+                  message: '请输入正确手机号',
+                  type: 'error'
+                }); 
+            }else{
+              this.szcInputValue = e.target.value;
+            }
+            
+          }
+         },
+           closeSzcDiolag(){
+              $(".szc-wrap").addClass("hide");
+          },
+           czmButton(e){
+            if(this.czmInputValue.length == 0){
+                this.$message({
+                  showClose: true,
+                  message: '请填写姓名',
+                  type: 'error'
+                });
+            }else{
+              var data = [{
+                  "surveyBaseInfoId":this.czmInputId,
+                  "personName": this.czmInputValue
+              }]
+              ///boot-pub-survey-manage//survey_base/v1/modify
+             axios.post(this.ajaxUrl+"/survey_base/v1/modify",data).then(response => {
+               if(response.status == 200){
+                 // Bus.$emit('addBar',this.id)
+                 // this.goCaseDetail(this.id);
+                 this.caseDetailData.reportVehicleInfo.reporterName = this.czmInputValue
+                 $(".czm-wrap").addClass("hide");
+                 this.open6();
+               }
+            }, err => {
+              
+            })
+            .catch((error) => {
+            
+            })
+               //alert("jiekou")
+            }
+         },
+          czmInput(e){
+
+          if(e.target.value.length == 0){
+            this.czmInputValue = "";
+            this.$message({
+              showClose: true,
+              message: '请填写姓名',
+              type: 'error'
+            });
+          }else{
+            this.czmInputValue = e.target.value;
+          }
+         },
+          closeCzmDiolag(){
+             $(".czm-wrap").addClass("hide");
+          },
+            //理赔确定按钮
+        claimButton(){
+           var arr = $(".part");
+           var claimInformationOne = "";
+           var noList = [];
+           var num = 0;
+           var str = "";
+           var monber = 0;
+           for(var i = 0;i < arr.length;i++){
+                num ++ ;
+                if($(arr[i]).hasClass("checkoutGreen")){
+                   str = $(arr[i]).children("span").html() + "-";
+                }else{
+                   str = "";
+                };
+                claimInformationOne += str
+                if(num%8 == 0 && claimInformationOne != ""){
+                  noList.push(claimInformationOne);
+                  str = "";
+                  claimInformationOne = "";
+                }
+
+            };
+
+            //理赔部位表
+           var list =  this.modifyData(noList);
+           console.log(list,"我是原始部位")
+           if(list.length != this.ImgInfo.length){
+                this.$message.error("请将信息填写完成！");
+                return
+           }
+           for(var i  in this.claimMoneyOne){
+              monber ++;
+           }
+           if(monber != this.ImgInfo.length){
+              this.$message.error("请将信息填写完成！");
+              return
+           }
+            //理赔信息
+             var claimList = this.disposalData(list);
+             console.log(list,"我是部位")
+             this.claimList = claimList;
+             this.signatureData();
+             // console.log(claimList,11111111111)
+              $(".claim-wrap").addClass("hide");
+          
+           // console.log(this.ImgInfo,222222)
+           // console.log(claimList,6666666666)
+           
+        },
+          disposalData(arr){
+            // console.log(arr,55555555)
+               var claimList = [];
+               for(var i = 0; i < this.ImgInfo.length; i++){
+                 var obj = {};
+                  obj.licenseNo = this.ImgInfo[i].originalVehicleLicenseNo;
+                  //cs
+                  //obj.surveyBaseInfoId = 1997;
+                  obj.surveyBaseInfoId = this.ImgInfo[i].id;
+                  obj.damagedPart = arr[i];
+                  obj.claimAmount = this.claimMoneyOne[i];
+                  claimList.push(obj)
+                 
+               }
+               console.log(claimList,"我是参数数据")
+               return claimList;
+          },
+         getImgInfo(){
+              var list = [];
+              // console.log(this.caseDetailData.reportVehicleInfo.id,"我是id")
+              list.push({originalVehicleLicenseNo:this.caseDetailData.reportVehicleInfo.vehicleLicenseNo,id:this.caseDetailData.reportVehicleInfo.id})
+             if(this.thirdActive){
+               var obj = this.accidentVehicleInfos
+
+              for(var i in obj){
+                //alert(11111)
+                 list.push({originalVehicleLicenseNo:obj[i].vehicleLicenseNo,id:obj[i].id})
+              }
+             };
+             // list.push({originalVehicleLicenseNo:2222222222222,id:33333333333333})
+             this.ImgInfo = list;
+            console.log(list,8888)
+
+          },
+         //签字数据
+         signatureData(){
+               // alert(this.signatureList.length)
+              if(this.signatureList.length == 3){
+                this.isTargetSign = true;
+                this.isThirdSign = true;
+                
+              }else{
+                  if(this.signatureList[1] == "标的签字"){
+                     this.isTargetSign = true;
+                     this.isThirdSign = false;
+                     
+                  }
+                if(this.signatureList[1] == "三者签字"){
+                     this.isThirdSign = true;
+                     this.isTargetSign = false;
+                     
+                }
+                if(!this.signatureList[1]){
+                    this.isThirdSign = false;
+                    this.isTargetSign = false;
+                }
+              }
+             
+                  
+          // alert(this.isTargetSign);
+          // alert(this.isThirdSign);
+         },
+          handleCheckedCitiesChange(value) {
+            this.signatureList = value;
+            //alert(value)
+           },
+           //理赔金额
+          one_part(e,key){
+             this.claimMoneyOne[key] = e.target.value;
+          },
+           part(e){
+            if($(e.target).hasClass("checkoutGreen")){
+                $(e.target).removeClass("checkoutGreen");
+                $(e.target).addClass("checkoutWhite");
+              }else{
+                $(e.target).addClass("checkoutGreen");
+                $(e.target).removeClass("checkoutWhite");
+              }
+          },
+          closeClaimDiolag(){
+             $(".claim-wrap").addClass("hide");
+          },
+           setDetails(){
+
+           var type = this.caseDetailData.surveySingleStatus
+
+           if(type == null){
+              this.$message({
+                showClose: true,
+                message: '单证还未发送',
+                type: 'error'
+              });
+              return 
+            }
+            var id = this.caseDetailData.surveySingleId
+              localStorage.setItem("wIdData",id);
+              var url = window.location.href.substring(0,(window.location.href.indexOf("#")+2));
+              console.log(url,88888888888888888);
+              console.log(url+ "message");
+              window.open(url+ "message")
+            // alert(type)
+            //this.$router.push("message");
+              // var id = this.caseDetailData.surveySingleId
+              // var url = window.location.href.substring(0,(window.location.href.indexOf("#")+2));
+              // console.log(url,88888888888888888);
+              // console.log(url+ this.ajaxUrl+"survey_single/v1/view?surveySingleId="+ id);
+              // window.open(url+ this.ajaxUrl+"survey_single/v1/view?surveySingleId="+ id)
+              // var url = window.location.href.substring(0,(window.location.href.indexOf("#")+2));
+             // axios.get(this.ajaxUrl+"/survey_single/v1/view?surveySingleId="+ id)
+             //    .then(response => {
+             //          console.log(id,"跳转id")
+             //          // var url = "https://survey.zhongchebaolian.com" + this.ajaxUrl+"/survey_single/v1/view?surveySingleId="+ id
+             //          var url = window.location.href.substring(0,(window.location.href.indexOf("#")+2));
+             //          console.log(url,88888888888888888)
+             //          console.log(url+ this.ajaxUrl+"/survey_single/v1/view?surveySingleId="+ id)
+             //          //window.open(url)
+             //          this.openWin(url);
+             //    }, err => {
+             //      console.log(err);
+             //    })
+             //    .catch((error) => {
+             //      console.log(error)
+             //    })
+        },
+        typeSelection(){
+              var str = "1";
+              if(this.selectStateTwo){
+                 str = "2";
+              }
+              if(this.selectStateOne){
+                str = "3"
+              }
+              return str
+          },
+           //发送订单
+          setElectronic(){
+            console.log(this.caseDetailData,"我是case数据")
+           var type =  this.typeSelection();
+           var data = {};
+             data.type =  this.typeSelection();
+             //cs
+             //data.surveyNo = "9e9d5480311b4b3496b16c9664fd84e3"
+             data.surveyNo = this.caseDetailData.accidentInfo.surveyNo;
+            if(this.selectStateOne){
+              data.type =  this.typeSelection();
+              //cs
+              //data.surveyNo = "9e9d5480311b4b3496b16c9664fd84e3"
+              data.surveyNo = this.caseDetailData.accidentInfo.surveyNo;
+              data.isTargetSign = this.isTargetSign;
+              data.isThirdSign = this.isThirdSign;
+              data.claimList = this.claimList;
+            }
+           console.log(data,747474747747474)
+            axios.post(this.ajaxUrl+"/survey_single/v1/send",data)
+            .then(response => {
+               // console.log(response,11111111111111)
+               if(response.status == 200){
+                 $(".orderSelectDialog").addClass("hide");
+                 this.open6();
+               }
+            }, err => {
+              console.log(err);
+              $(".loadingBox").addClass('hide')
+            })
+            .catch((error) => {
+              console.log(error)
+              $(".loadingBox").addClass('hide')
+            })
+          console.log(data,5555555555)
+        },
+           handleCheckedChange(value) {
+            if(value[1] == "转赔授权书"){
+                 this.selectStateTwo = true;
+                 return
+            }
+            if(value[1] == "快赔协议"){
+                 $('.claim-wrap').removeClass("hide");
+                 this.selectStateOne = true;
+                 if(this.thirdActive){
+                    this.cityOptions = ["标的签字","三者签字"];
+                 }else{
+                   this.cityOptions = ["标的签字"];
+                 }
+                 return
+            }
+            this.selectStateTwo = false;
+            this.selectStateOne = false;
+          },
+          /////////////////////
+          saveBeizhu(){
+            this.beizhuInfo = this.beizhuInfo.replace(/(^\s*)|(\s*$)/g, "");
+            if(this.beizhuInfo == ''){
+              this.open4("请输入备注")
+            }else{
+              var data = {
+                'surveyNo':this.surveyNo,
+                "noteContent":this.beizhuInfo
+
+              }
+              axios.post(this.ajaxUrl+"/survey/order/v1/save/note",data)
+                .then(response => {
+                  if(response.data.rescode == 200){
+                    this.open2(response.data.resdes)
+                  }else{
+                    this.open4(response.data.resdes)
+                  }
+                }, err => {
+                  console.log(err);
+                })
+                .catch((error) => {
+                  console.log(error)
+                })
+            }
+          },
+          savethirdCar(vehicleLicenseNumber){
+            for(var i=0;i<this.thirdCar.length;i++){
+              if(this.thirdCar[i].vehicleLicenseNo == vehicleLicenseNumber){
+                var vehicleOwnerPhone = $(".thirdphone").eq(i).val();
+              }
+            }
+            vehicleOwnerPhone = vehicleOwnerPhone.replace(/\s/g,"");
+            var reg = new RegExp("^[0-9]*$");
+            if(!reg.test(vehicleOwnerPhone)){
+              this.open4("请输入正确手机号")
+            }else if(vehicleOwnerPhone.length<11 && vehicleOwnerPhone.length>0) {
+              this.open4("请输入正确手机号")
+            }else{
+              if(vehicleOwnerPhone == '') {
+                for (var i = 0; i < this.thirdCar.length; i++) {
+                  if (this.thirdCar[i].vehicleLicenseNo == vehicleLicenseNumber) {
+                    $(".thirdphone").eq(i).val('暂无');
+                  }
+                }
+              }
+              var data = {
+                'surveyNo':this.surveyNo,
+                "vehicleLicenseNumber":vehicleLicenseNumber,
+                "vehicleOwnerPhone": vehicleOwnerPhone
+              }
+              axios.post(this.ajaxUrl+"/survey/vehicle/v1/owner",data)
+                .then(response => {
+                  if(response.data.rescode == 200){
+                    this.open2(response.data.resdes)
+                  }else{
+                    this.open4(response.data.resdes)
+                  }
+                }, err => {
+                  console.log(err);
+                })
+                .catch((error) => {
+                  console.log(error)
+                })
+            }
+          },
+          getBeizhu(){
+            $(".beizhuDiolag").removeClass("hide");
+            var data = {
+              'surveyNo':this.surveyNo,
+            }
+            axios.post(this.ajaxUrl+"/survey/order/v1/query/note",data)
+              .then(response => {
+                if(response.data.rescode == 200){
+                  if(response.data.data != '' || response.data.data != null){
+                    this.beizhuInfo = response.data.data.noteContent;
+                    this.beizhuActive = true;
+                  }
+                }else{
+                  this.open4(response.data.resdes)
+                }
+              }, err => {
+                console.log(err);
+              })
+              .catch((error) => {
+                console.log(error)
+              })
+          },
+          getvedio(){
+            if(this.surveyVideoRooms.length!=0){
+             this.$nextTick(() => {
+                for(let i in this.surveyVideoRooms){
+                  var swfobj = new SWFObject('https://union.bokecc.com/flash/player.swf', "videourl"+ i, '100%', '200', '8');
+                  swfobj.addVariable("userid", "F08A8B432F24065A"); //  partnerID,用户id
+                  swfobj.addVariable("videoid", this.surveyVideoRooms[i].videoRoomId);  //  spark_videoid,视频所拥有的 api id
+                  swfobj.addVariable("mode", "api");  //  mode, 注意：必须填写，否则无法播放
+                  swfobj.addVariable("autostart", "false"); //  开始自动播放，true/false
+                  swfobj.addVariable("jscontrol", "true");  //  开启js控制播放器，true/false
+                  swfobj.addParam('allowFullscreen', 'true');
+                  swfobj.addParam('allowScriptAccess', 'always');
+                  swfobj.addParam('wmode', 'transparent');
+                  swfobj.write("video" + i);
+                }
+              })
+            }
+
+          },
+          open4(resdes) {
+            this.$message.error(resdes);
+          },
+          open2(resdes) {
+            this.$message.success(resdes);
+          },
+          getCarNo(vehicleLicenseNo){
+           this.thirdvehicleLicenseNo =  vehicleLicenseNo
+          },
+          handleCurrentChangethird(currentPage){
+            for(let i in this.accidentVehicleInfos){
+              if(this.thirdvehicleLicenseNo == this.accidentVehicleInfos[i].vehicleLicenseNo){
+
+                this.getCasePhones(currentPage,4,this.thirdvehicleLicenseNo,this.surveyNo,i)
+              }
+            }
+          },
+          handleCurrentChangeAim(currentPage) {//跳转
+            //当前页改变调用接口 currentPage   pageSizeAim
+            this.currentPageNoAim = currentPage;
+            this.getCasePhones(this.currentPageNoAim,4,this.caseDetailData.reportVehicleInfo.vehicleLicenseNo,this.surveyNo,"")
+          },
+          getCasePhones(currentPageNo,pageSize,vehicleLicenseNo,surveyNo,source){
+            var paramData = {
+              "pageNo": currentPageNo,
+              "pageSize": pageSize,
+              "vehicleLicenseNo": vehicleLicenseNo,
+              "surveyNo": surveyNo
+            }
+            axios.post(this.ajaxUrl+"/survey/order/history/v1/photo/list",paramData)
+              .then(response => {
+                if(response.data.rescode == 200){
+                    if(source == ""){
+                      this.recordsImg = response.data.data.records;
+
+                      this.totalCountAim = response.data.data.total;
+                      this.$nextTick(() => {
+                        new Viewer(document.getElementById('scaleImg'), {
+                          url: 'data-src',
+                          navbar:false,
+                          toolbar:true,
+                          loop: true
+                        })
+                      })
+                    }else{
+                      var thirdLength = this.accidentVehicleInfos.length;
+                      for(let i in this.accidentVehicleInfos){
+                        if(i == source){
+                          this.accidentVehicleInfos[i].thirdCarImg = [];
+                          for(let j in response.data.data.records){
+                            this.accidentVehicleInfos[i].thirdCarImg.push(response.data.data.records[j])
+                          }
+                          this.accidentVehicleInfos[i].total = response.data.data.total;
+                          this.accidentVehicleInfos[i].pageNum = response.data.data.pageNum;
+                        }
+                      }
+                      this.$nextTick(() => {
+                        this.thirdCar = ''
+                        this.thirdCar = this.accidentVehicleInfos;
+                        for (let i in this.thirdCar) {
+                          this.$nextTick(() => {
+                            new Viewer(document.getElementsByClassName('suibian')[i], {
+                              url: 'data-src',
+                              navbar: false,
+                              toolbar: true,
+                              loop: true
+                            })
+                          })
+                        }
+                      })
+                    }
+
+                }else{
+
+                }
+              }, err => {
+                console.log(err);
+              })
+              .catch((error) => {
+                console.log(error)
+              })
+          },
+          closCaseDetail(){
+            $(".caseDetail").addClass("hide")
+            this.$store.commit('setCaseDetailActive', false)
+          },
+        
+
+
+        ////////////////////
         saveBeizhu(){
           this.beizhuInfo = this.beizhuInfo.replace(/(^\s*)|(\s*$)/g, "");
           if(this.beizhuInfo == ''){
@@ -531,7 +1345,6 @@ export default {
         handleCurrentChangethird(currentPage){
           for(let i in this.accidentVehicleInfos){
             if(this.thirdvehicleLicenseNo == this.accidentVehicleInfos[i].vehicleLicenseNo){
-
               this.getCasePhones(currentPage,4,this.thirdvehicleLicenseNo,this.surveyNo,i)
             }
           }

@@ -18,7 +18,7 @@
   }
   .headBox{
     background: #fff;
-    padding: 0 14%;
+    padding: 0 10%;
     margin: 0 auto;
     overflow: hidden;
     height: 80px;
@@ -78,6 +78,17 @@
     font-size: 16px;
    cursor: pointer;
   }
+  .caseNumber {
+    font-size: 13px;
+    position: relative;
+    top: -5px;
+  }
+  .caseNumber b {
+    font-size: 20px;
+    color: red;
+    position: relative;
+    top: 2px;
+  }
 </style>
 <template>
   <div>
@@ -98,6 +109,8 @@
           </div>
         </div>
         <div class="headerLeft">
+          <span class="caseNumber">您有<b>{{caseNumber}}</b>个待处理(已指派)案件</span>
+          <b style="margin: 0 10px; color:#ccc;">|</b>
           <span class="userName">{{chinaName}}</span>
           <span class="userInsitu">({{userName}})</span>
           <span class="signOut" @click="clickSignOut">退出</span>
@@ -117,6 +130,7 @@
   export default {
     data(){
       return{
+        caseNumber: 0,
         chinaName: '',
         userName: '',
         orgCode: "",
@@ -156,6 +170,8 @@
       this.userId = localStorage.getItem('userId');
       this.caseActive = true;
       this.seatActive = false;
+
+      this.getCaseNumber();
     },
     watch:{
       "activeName" (){
@@ -181,6 +197,19 @@
       goNewRouter(){
         console.log(window.location.href )
 //        window.open('http://localhost:8081/')
+      },
+
+      // 获取待处理案件数量
+      getCaseNumber(){
+         axios.get(this.ajaxUrl+"/web/surveyor/v1/assign/handle/count/"+this.userId)
+         .then( res => {
+          //  console.log('获取到数量',res.data);
+           if(res.data.rescode == 200){
+             this.caseNumber = res.data.data;
+           }else{
+             this.open4('获取待处理案件数量'+res.data.resdes);
+           }
+         })
       },
       //退出
       clickSignOut() {

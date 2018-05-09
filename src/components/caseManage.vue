@@ -646,7 +646,7 @@
   .creatCase{
     position:fixed;
     top: 10px;
-    right: 15%;
+    right: 10%;
     color: #fff;
     padding: 9px 16px;
     cursor: pointer;

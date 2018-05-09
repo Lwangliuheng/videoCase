@@ -2441,7 +2441,7 @@
         var roomInstance = that.roomInstance;
         // 创建本地桌面或窗口媒体流，用于进行屏幕共享。注意：该媒体流只有视频流，无音频流，且视频流分辨率有窗口大小决定。
         wilddogVideo.createLocalStream({
-           captureVideo: false,
+           captureVideo: true,
 //          captureVideo: false,
           captureAudio: true,
           dimension: '120p',

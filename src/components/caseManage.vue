@@ -798,6 +798,9 @@
   .viewer-footer{
     display:none;
   }
+  .ts-word{
+    color:red;
+  }
 </style>
 <template>
 
@@ -1105,6 +1108,7 @@
     </div>
     <div class="casePhotos">
       <div class="g-content-row">
+        <div class="ts-word" v-if="this.orgCode == '69a49132-13fd-4705-b769-3f9ac3161fc2'">如无行驶证请拍摄车辆年检标；营运车辆请拍摄营运资格证、从业资格证、开箱拍摄装载情况；搜集三者电话和骑手合影；前后碰撞请开箱拍摄内部及灯爪情况；现场如有特殊情况请及时反馈调度组！</div>
         <div class="gcr-mod m-carNo-imgInfo">
           <div class="gcr-tit" style="justify-content: space-between;" id="carInfo">
             <div class="flex">
@@ -2041,6 +2045,8 @@
 //      this.getUserMedia({video:true},"","");
       this.userId = localStorage.getItem('userId');
       this.orgCode = localStorage.getItem('orgCode');
+      console.log(this.orgCode == '69a49132-13fd-4705-b769-3f9ac3161fc2');
+      console.log(this.orgCode);
       this.localEl = document.getElementById('local');
       this.videosEl = document.getElementById('video');
       this.getbeatTime()
@@ -2066,6 +2072,7 @@
 
     },
     mounted () {
+
       var that = this;
       window.onbeforeunload = function(){
         localStorage.setItem('A',"2")

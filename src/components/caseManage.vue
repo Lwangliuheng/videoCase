@@ -827,7 +827,7 @@
     </div>
     <div class="orderSelectDialog hide">
       <div class="orderSelectDialogBox">
-        <h4>请选择订单完成类型</h4>
+        <h4>请描述事故经过</h4>
         <span @click="closeOrderDiolag" class="closeCityDiolag">×</span>
         <div class="selectBox">
           <div class="selectType">
@@ -836,7 +836,7 @@
               <option value="0">异常办结</option>
             </select>
           </div>
-          <textarea data-m class="textareaBox" v-model="exceptionComment" placeholder="请输入办结描述"></textarea>
+          <textarea data-m class="textareaBox" v-model="exceptionComment" placeholder="请输入事故经过"></textarea>
           <div class="openOrderEndBox">
             <span class="backColorGreen surebutton" @click="openOrderEndBox">确定</span>
           </div>
@@ -872,9 +872,9 @@
           <input @click="openCityDialog" v-model="getCity" type="text" readonly="readonly" class="creatInputNo"/>
           <input style="width:140px;" v-model="vehicleLicenseNo" placeholder="请输入车牌号" type="text"/>
         </div>
-        <!--<div class="inputBox">-->
-          <!--<span>手机号:</span><input placeholder="请输入手机号" type="tel" maxlength="11"/>-->
-        <!--</div>-->
+        <div class="inputBox">
+          <span>手机号:</span><input v-model="mobileNumber" placeholder="请输入手机号" type="tel" maxlength="11"/>
+        </div>
         <div style="margin: 20px auto;text-align: center;">
           <span class="backColorGreen saveCarInfo" @click="savevehicle">保存</span>
         </div>
@@ -1118,24 +1118,24 @@
                     <dd id="c0" class="data-car-m" >
                       <span v-if="oneCarActive" style="color: #35aa42;">标的车：{{saveonevehicleLicenseNo}}</span>
                       <span v-else>标的车：{{saveonevehicleLicenseNo}}</span>
-                      <i data-type="1"  data-id="839" data-licenseno="saveonevehicleLicenseNo" @click="editorCar(saveonevehicleLicenseNo,saveoneoriginalVehicleLicenseNo,isOrderVehicleone,'0' )" v-if="oneCarActive" class="u-edit-icon"></i>
-                      <i data-type="1"  data-id="839" data-licenseno="saveonevehicleLicenseNo" @click="editorCar(saveonevehicleLicenseNo,saveoneoriginalVehicleLicenseNo,isOrderVehicleone,'0')" v-else class="u-edit-iconGreay hide"></i>
+                      <i data-type="1"  data-id="839" data-licenseno="saveonevehicleLicenseNo" @click="editorCar(saveonevehicleLicenseNo,saveonemobileNumber,saveoneoriginalVehicleLicenseNo,isOrderVehicleone,'0' )" v-if="oneCarActive" class="u-edit-icon"></i>
+                      <i data-type="1"  data-id="839" data-licenseno="saveonevehicleLicenseNo" @click="editorCar(saveonevehicleLicenseNo,saveonemobileNumber,saveoneoriginalVehicleLicenseNo,isOrderVehicleone,'0')" v-else class="u-edit-iconGreay hide"></i>
                     </dd>
                   </dl>
                   <dl v-if="ImgInfo.length > 1" class="m-carNo-list" id="selectImgTypeTwo" @click="selectCarAim('1',$event,savetwovehicleLicenseNo)">
                     <dd id="c1" class="data-car-m">
                       <span v-if="TwoCarActive" style="color: #35aa42;">三者车：{{savetwovehicleLicenseNo}}</span>
                       <span v-else>三者车：{{savetwovehicleLicenseNo}}</span>
-                      <i data-type="1"  data-id="839"  @click="editorCar(savetwovehicleLicenseNo,savetwooriginalVehicleLicenseNo,isOrderVehicletwo,'1')" v-if="TwoCarActive" class="u-edit-icon"></i>
-                      <i data-type="1" data-id="839"  @click="editorCar(savetwovehicleLicenseNo,savetwooriginalVehicleLicenseNo,isOrderVehicletwo,'1')" v-else class="u-edit-iconGreay"></i>
+                      <i data-type="1"  data-id="839"  @click="editorCar(savetwovehicleLicenseNo,savetwomobileNumber,savetwooriginalVehicleLicenseNo,isOrderVehicletwo,'1')" v-if="TwoCarActive" class="u-edit-icon"></i>
+                      <i data-type="1" data-id="839"  @click="editorCar(savetwovehicleLicenseNo,savetwomobileNumber,savetwooriginalVehicleLicenseNo,isOrderVehicletwo,'1')" v-else class="u-edit-iconGreay"></i>
                     </dd>
                   </dl>
                   <dl v-if="ImgInfo.length > 2" class="m-carNo-list" id="selectImgTypeThree" @click="selectCarAim('2',$event,savethreevehicleLicenseNo)">
                     <dd id="c2" class="data-car-m">
                       <span v-if="threeCarActive" style="color: #35aa42;">三者车：{{savethreevehicleLicenseNo}}</span>
                       <span v-else>三者车：{{savethreevehicleLicenseNo}}</span>
-                      <i data-type="1"  data-id="839" @click="editorCar(savethreevehicleLicenseNo,savethreeoriginalVehicleLicenseNo,isOrderVehiclethree,'2')" v-if="threeCarActive" class="u-edit-icon"></i>
-                      <i data-type="1"  data-id="839" @click="editorCar(savethreevehicleLicenseNo,savethreeoriginalVehicleLicenseNo,isOrderVehiclethree,'2')" v-else class="u-edit-iconGreay "></i>
+                      <i data-type="1"  data-id="839" @click="editorCar(savethreevehicleLicenseNo,savethreemobileNumber,savethreeoriginalVehicleLicenseNo,isOrderVehiclethree,'2')" v-if="threeCarActive" class="u-edit-icon"></i>
+                      <i data-type="1"  data-id="839" @click="editorCar(savethreevehicleLicenseNo,savethreemobileNumber,savethreeoriginalVehicleLicenseNo,isOrderVehiclethree,'2')" v-else class="u-edit-iconGreay "></i>
                     </dd>
                   </dl>
                   <div class="m-carNo-add" v-if="carThreeActive" id="addCarNo" @click="openAddCar('3')"></div>
@@ -1257,12 +1257,16 @@
         manualStatus: 2,
         noDealCase:[],
         vehicleLicenseNo: "",
+        mobileNumber:"",//添加手机号
         savephotoType: "",
         savephotoUrl: "",
         surveyNo: "",
         saveonevehicleLicenseNo: "",
+        saveonemobileNumber: "",//标的车手机号
         savetwovehicleLicenseNo: "",
+        savetwomobileNumber:"",//三者车第二个车手机号
         savethreevehicleLicenseNo: "",
+        savethreemobileNumber: "",//三者车第三个车手机号
         oneCarActive: true,
         TwoCarActive: false,
         threeCarActive: false,
@@ -2868,10 +2872,12 @@
             console.log(error)
           })
       },
-      editorCar(vehicleLicenseNo,originalVehicleLicenseNo,isOrderVehicle,editorcar){
+      editorCar(vehicleLicenseNo,mobileNumber,originalVehicleLicenseNo,isOrderVehicle,editorcar){
         $(".editorCarInfo").removeClass("hide");
         this.originalVehicleLicenseNo  = originalVehicleLicenseNo;
         this.isOrderVehicle = isOrderVehicle;
+        //新加手机号
+        this.mobileNumber = mobileNumber;
         this.opsType = "0";
         console.log(this.originalVehicleLicenseNo);
         this.getCity = vehicleLicenseNo.substring(0,1);
@@ -2880,6 +2886,12 @@
       },
       //保存车辆车牌号
       savevehicle(){
+        var r = /^[0-9]*$/;
+        var phone = this.mobileNumber;
+        if(!r.test(phone)){
+            this.open4("请输入正确的手机号");
+            return
+        };
         if(this.vehicleLicenseNo == ''){
           this.open4("请输入车牌号")
         }else{
@@ -2891,6 +2903,7 @@
             "vehicleLicenseNo":this.getCity+this.vehicleLicenseNo,
             "originalVehicleLicenseNo": this.originalVehicleLicenseNo,
             "isOrderVehicle": this.isOrderVehicle,
+            "mobileNumber" : this.mobileNumber,
             "opsType": this.opsType
           }
           axios.post(this.ajaxUrl+"/survey/vehicle/v1/vehicle",data)
@@ -3492,6 +3505,8 @@
                 if(k == 0){
                   for(let i in this.ImgInfo[k].allTypeSurveyPhotos){
                     this.saveonevehicleLicenseNo = this.ImgInfo[k].vehicleLicenseNo;
+                     //新加手机号，标车第一个
+                    this.saveonemobileNumber = this.ImgInfo[k].mobileNumber;
                     this.saveoneoriginalVehicleLicenseNo = this.ImgInfo[k].originalVehicleLicenseNo;
                     this.isOrderVehicleone = this.ImgInfo[k].isOrderVehicle;
                     for(let j in this.oneTypeSurveyPhotos){
@@ -3504,6 +3519,8 @@
                 }else if(k == 1){
                   for(let i in this.ImgInfo[k].allTypeSurveyPhotos){
                     this.savetwovehicleLicenseNo = this.ImgInfo[k].vehicleLicenseNo;
+                    //新加手机号，第二个
+                    this.savetwomobileNumber = this.ImgInfo[k].mobileNumber;
                     this.savetwooriginalVehicleLicenseNo = this.ImgInfo[k].originalVehicleLicenseNo;
                     this.isOrderVehicletwo = this.ImgInfo[k].isOrderVehicle;
                     for(let j  in this.twoTypeSurveyPhotos){
@@ -3516,6 +3533,8 @@
                 }else if(k == 2){
                   for(let i in this.ImgInfo[k].allTypeSurveyPhotos){
                     this.savethreevehicleLicenseNo = this.ImgInfo[k].vehicleLicenseNo;
+                     //新加手机号，第三个
+                    this.savethreemobileNumber = this.ImgInfo[k].mobileNumber;
                     this.savethreeoriginalVehicleLicenseNo = this.ImgInfo[k].originalVehicleLicenseNo;
                     this.isOrderVehiclethree = this.ImgInfo[k].isOrderVehicle;
                     for(let j  in this.threeTypeSurveyPhotos){
@@ -3592,7 +3611,8 @@
               $(".orderSelectDialog").addClass("hide");
               this.open6()
             }else{
-              this.open4(response.data.resdes)
+              //this.open4(response.data.resdes)
+              this.open4("请输入事故经过");
             }
           }, err => {
             console.log(err);

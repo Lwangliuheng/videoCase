@@ -219,6 +219,9 @@
             <th style="width:18%;">
               事故地点
             </th>
+            <th width="10%">
+              单据状态
+            </th>
             <th>
               操作
             </th>
@@ -234,6 +237,7 @@
             <td style="width:160px;">{{item.accidentTime}}</td>
             <td>{{item.startHandleTime}}</td>
             <td>{{item.accidentAddress}}</td>
+            <td>{{stateHandling(item.surveySingleStatus)}}</td>
             <td ><span class="listView" @click="goCaseDetail(item.id)">查看</span></td>
           </tr>
           </tbody>
@@ -363,7 +367,17 @@
       this.caseDetailActive = this.$store.state.caseDetailActive;
     },
     methods: {
-
+      stateHandling(state){
+          if(state == null){
+            return "未发送"
+          }
+          if(state){
+            return "已签字";
+          }
+          if(!state && state != null){
+            return "已发送，未签字"
+          }
+      },
       open4(resdes) {
         this.$message.error(resdes);
       },
@@ -531,6 +545,7 @@
               var data = JSON.stringify(response.data.data)
               localStorage.setItem("caseDetailData",data);
               this.$store.commit('setCaseDetailActive', true);
+
               this.caseDetailActive = this.$store.state.caseDetailActive;
             }
           }, err => {

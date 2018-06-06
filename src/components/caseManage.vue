@@ -836,7 +836,7 @@
               <option value="0">异常办结</option>
             </select>
           </div>
-          <textarea data-m class="textareaBox" v-model="exceptionComment" placeholder="请输入事故经过"></textarea>
+        <!--   <textarea data-m class="textareaBox" v-model="exceptionComment" placeholder="请输入事故经过"></textarea> -->
           <div class="openOrderEndBox">
             <span class="backColorGreen surebutton" @click="openOrderEndBox">确定</span>
           </div>
@@ -1056,9 +1056,10 @@
                     <div class="player-auto-flash" id="closevideo" style="display:none" @click="closeVideo">
                       <img style="width:30px;height:30px;" src="../images/videoClose.png">
                     </div>
-                    <div class="player-auto-flash" id="openvideo"  @click="openVideo">
+                    <!-- 双向视频 -->
+                    <!-- <div class="player-auto-flash" id="openvideo"  @click="openVideo">
                       <img style="width:30px;height:30px;" src="../images/videoOpen.png">
-                    </div>
+                    </div> -->
                     <div class="player-auto-flash" id="closeflashButton" style="display:none">
                     <img src="../images/video_ico_11.png">
                     </div>
@@ -2445,8 +2446,8 @@
         var roomInstance = that.roomInstance;
         // 创建本地桌面或窗口媒体流，用于进行屏幕共享。注意：该媒体流只有视频流，无音频流，且视频流分辨率有窗口大小决定。
         wilddogVideo.createLocalStream({
-           captureVideo: true,
-//          captureVideo: false,
+          // captureVideo: true,
+         captureVideo: false,
           captureAudio: true,
           dimension: '120p',
           maxFPS: 15
@@ -3586,11 +3587,16 @@
       },
     //查勘完成
       openOrderEndBox(){
-        var data = {
+       /* var data = {
           "surveyNo":this.roomId,
           "isExceptionComplete":this.isExceptionComplete,
           "exceptionCode":this.exceptionCode,
           "exceptionComment": this.exceptionComment
+        }*/
+         var data = {
+          "surveyNo":this.roomId,
+          "isExceptionComplete":this.isExceptionComplete,
+          "exceptionCode":this.exceptionCode
         }
         axios.post(this.ajaxUrl+"/survey/order/v1/complete",data)
           .then(response => {
@@ -3612,7 +3618,7 @@
               this.open6()
             }else{
               //this.open4(response.data.resdes)
-              this.open4("请输入事故经过");
+              this.open4("请发送电子查勘单");
             }
           }, err => {
             console.log(err);

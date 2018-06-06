@@ -26,6 +26,7 @@ var loadinginstace = ''
 axios.interceptors.request.use(config => {
   console.log(config.url)
   // element ui Loading方法
+ 
   if(config.url == '/boot-pub-survey-video/web/surveyor/v1/manual/status'){
     loadinginstace = ""
  }else if(config.url =="/boot-pub-survey-video/survey/order/v1/wait/order/list"){
@@ -50,7 +51,13 @@ axios.interceptors.request.use(config => {
     // loadinginstace = ElementUI.Loading.service({ fullscreen: true })
     loadinginstace = ""
   }
-
+   if(config.url == '/boot-pub-survey-video/survey_single/v1/send'){
+    loadinginstace = ElementUI.Loading.service({ fullscreen: true })
+  }
+  //保存事故经过
+  if(config.url == '/boot-pub-survey-video/survey/order/v1/accident/desc'){
+    loadinginstace = ElementUI.Loading.service({ fullscreen: true })
+  }
 
   return config
 }, error => {
@@ -62,8 +69,9 @@ axios.interceptors.request.use(config => {
 })
 // http响应拦截器
 axios.interceptors.response.use(data => {// 响应成功关闭loading
+
   if (loadinginstace) {
-    loadinginstace.close()
+    loadinginstace.close();
     loadinginstace = ''
   }
   if (data.data.rescode == 300) {

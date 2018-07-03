@@ -54,6 +54,10 @@ axios.interceptors.request.use(config => {
    if(config.url == '/boot-pub-survey-video/survey_single/v1/send'){
     loadinginstace = ElementUI.Loading.service({ fullscreen: true })
   }
+  //小额
+  if(config.url == '/boot-pub-survey-video/small_claim/v1/send'){
+    loadinginstace = ElementUI.Loading.service({ fullscreen: true })
+  }
   //保存事故经过
   if(config.url == '/boot-pub-survey-video/survey/order/v1/accident/desc'){
     loadinginstace = ElementUI.Loading.service({ fullscreen: true })

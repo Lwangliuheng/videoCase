@@ -4,6 +4,7 @@ import surveyContant from  '@/page/surveyContant'
 import login from '@/page/login'
 import historyCase from '@/page/historyCase'
 import message from '@/page/message'
+import applicationBook from '@/page/applicationBook'
 Vue.use(Router);
 
 export default new Router({
@@ -29,6 +30,10 @@ export default new Router({
     {
       path: '/',
       component: login
+    },
+    {
+      path: '/applicationBook',
+      component: applicationBook
     },
     {
       path: '/message',

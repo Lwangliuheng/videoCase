@@ -801,6 +801,11 @@
   .ts-word{
     color:red;
   }
+  .callPhone_img{
+    width:18px;
+    height:19px;
+    margin-left: 5px;
+  }
 </style>
 <template>
 
@@ -973,13 +978,19 @@
           <div class="item-txt-list" v-if="doingActive">
             <p>车牌号：<span id="bdno">{{leftData.reportVehicleLicenseNo}}</span> </p>
             <p>报案人姓名：{{leftData.reporterName}}</p>
-            <p>报案人电话：<span id="bdtel">{{leftData.reporterPhone}}<span></span></span></p>
+            <p>
+            报案人电话：<span id="bdtel">{{leftData.reporterPhone}}<span></span></span>
+            <img v-if="insurecode == 111111111111" src="../images/phone.png" class="callPhone_img" @click="callPhone($event,leftData.reporterPhone)">
+            </p>
             <p>保险公司：{{leftData.insuranceCompanyName}}</p>
             <p class="address">报案地点：{{leftData.reportLocation}}</p>
 
             <div class="item-txt-list">
               <p>查勘员姓名：{{leftData.liveSurveyorName}} </p>
-              <p>查勘员电话：{{leftData.liveSurveyorPhone }}</p>
+              <p>
+              查勘员电话：{{leftData.liveSurveyorPhone }}
+              <img v-if="insurecode == 111111111111" src="../images/phone.png" class="callPhone_img" @click="callPhone($event,leftData.liveSurveyorPhone)">
+              </p>
               <p>查勘员接单数：{{leftData.liveSurveyorCompleteOrderCount}}</p>
               <p v-if="leftData.liveSurveyorStatus == '11'">查勘员状态：待指派</p>
               <p v-if="leftData.liveSurveyorStatus == '12'">查勘员状态：已指派</p>
@@ -1208,15 +1219,19 @@
         </div>
       </div>
     </div>
+     <!-- 打电话 -->
+    <call-modal v-if="callPhoneStatus" v-bind:phone="callPhoneNum"></call-modal>
   </div>
 </template>
 <script>
 
   import caseList from '@/components/caseList'
   import caseMonitor from '@/components/caseMonitor'
+  import callModal from '../components/callModal'
   import Viewer from 'viewerjs';
   import axios from 'axios'
   import  '../assets/js/dog'
+  import Bus from "../../video/static/bus.js"
   var wilddogVideo = require('wilddog-video-base').wilddogVideo;
   var roomFactory = require('wilddog-video-room');
   wilddogVideo.regService('room', roomFactory);
@@ -1234,6 +1249,7 @@
     },
     data() {
       return{
+        insurecode:"",
         liveSurveyorCompleteOrderCount: "",//骑手接单数
         beizhuInfo: "",
         editorcar: "",
@@ -2043,7 +2059,9 @@
         beatTime: "",
         freshActive: false,
         originalVehicleLicenseNo: "",
-        isOrderVehicle: ""
+        isOrderVehicle: "",
+        callPhoneNum:"",//拨打电话值
+        callPhoneStatus:false
       }
     },
     created(){
@@ -2069,7 +2087,10 @@
       this.getNodealCase()
 
       this.checkStateOne();
-      this.getLeftData()
+      this.getLeftData();
+       Bus.$on('gbCallPhoneTc', () => { //Hub接收事件
+        this.callPhoneStatus = false;
+       });
     },
 
     watch:{
@@ -2077,7 +2098,8 @@
 
     },
     mounted () {
-
+      this.insurecode = localStorage.getItem('insurecode');
+      console.log(this.insurecode)
       var that = this;
       window.onbeforeunload = function(){
         localStorage.setItem('A',"2")
@@ -2091,6 +2113,15 @@
       }, 15000)
     },
     methods: {
+        //打电话
+      callPhone(e,phone){
+        if(phone.length == 0){
+           this.open4("电话号不能为空!")
+          return
+        }
+        this.callPhoneStatus = true;
+        this.callPhoneNum = phone;
+      },
       //判断浏览器是否允许摄像头访问
 //      getUserMedia(obj, success, error) {
 //        if (navigator.getUserMedia) {
@@ -3964,7 +3995,7 @@
       }
     },
     components: {
-
+       callModal,
     },
     destroyed () {
       clearInterval(this.beatTime);

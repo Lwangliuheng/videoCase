@@ -399,14 +399,14 @@
                          <el-checkbox label="电子查勘单" disabled ></el-checkbox>
                          <el-checkbox label="转赔授权书" :disabled="selectStateOne"></el-checkbox>
                          <el-checkbox label="快赔协议" :disabled="selectStateTwo" class="triggerCheckout"></el-checkbox>
-                         <el-checkbox label="小额快赔" :disabled="selectStateThree" class="triggerXeCheckout" v-if="caseDetailData.reportVehicleInfo.insuranceCompanyCode == 110000003007"></el-checkbox>
+                         <el-checkbox label="小额快赔" :disabled="selectStateThree" class="triggerXeCheckout" v-if="caseDetailData.reportVehicleInfo.insuranceCompanyCode == 110000003007 && false"></el-checkbox>
                      </el-checkbox-group>
                   </div>
                   <!-- 修改5.22 -->
                   <span class="sent-but" @click="underlyingThreeCar">发送单证</span>
                  <!--  <span class="sent-but" @click="setElectronic">发送单证</span> -->
                   <span class="sent-but" @click="setDetails">查看</span>
-                  <span class="sent-but" @click="goApplicationBook" v-if="caseDetailData.reportVehicleInfo.insuranceCompanyCode == 110000003007">申请书</span>
+                  <span class="sent-but" @click="goApplicationBook" v-if="caseDetailData.reportVehicleInfo.insuranceCompanyCode == 110000003007 && false">申请书</span>
                   <!-- <a :href="url" class="sent-but" @click="setDetails" target="_blank">查看</a> -->
                  
               </div>

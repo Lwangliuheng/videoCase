@@ -421,14 +421,14 @@
              <div class="che-one" v-for="(item,index) in ImgInfo">
                   <p class="plate">{{item.originalVehicleLicenseNo}}</p>
                   <div class="part-wrap part-wrap-one" >
-                     <div class="part" @click="part($event,item)" >正前部<span>1</span></div>
-                     <div class="part" @click="part($event,item)" >左前部<span>2</span></div>
-                     <div class="part" @click="part($event,item)" >右前部<span>3</span></div>
-                     <div class="part" @click="part($event,item)" >左中部<span>4</span></div>
-                     <div class="part" @click="part($event,item)" >正后部<span>5</span></div>
-                     <div class="part" @click="part($event,item)" >左后部<span>6</span></div>
-                     <div class="part" @click="part($event,item)" >右后部<span>7</span></div>
-                     <div class="part" @click="part($event,item)" >右中部<span>8</span></div>
+                     <div class="xpart" @click="part($event,item)" >正前部<span>1</span></div>
+                     <div class="xpart" @click="part($event,item)" >左前部<span>2</span></div>
+                     <div class="xpart" @click="part($event,item)" >右前部<span>3</span></div>
+                     <div class="xpart" @click="part($event,item)" >左中部<span>4</span></div>
+                     <div class="xpart" @click="part($event,item)" >正后部<span>5</span></div>
+                     <div class="xpart" @click="part($event,item)" >左后部<span>6</span></div>
+                     <div class="xpart" @click="part($event,item)" >右后部<span>7</span></div>
+                     <div class="xpart" @click="part($event,item)" >右中部<span>8</span></div>
                   </div>
                   <div class="input-box">
                         <span>赔付金额</span>
@@ -1055,7 +1055,7 @@ export default {
            this.$message.error("请将信息填写完成！");
            return
         };
-         var arr = $(".part");
+         var arr = $(".xpart");
          var claimInformationOne = "";
          var noList = [];
          var num = 0;

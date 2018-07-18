@@ -14,8 +14,8 @@ module.exports = {
         // target: 'http://192.168.1.69:18081',      // 志猛个人服务器
         // target: 'http://192.168.1.154:80',      // 和鹏个人服务器
         // target: 'http://192.168.1.18:8080',//元鹏
-        target: 'https://chakan.zhongchebaolian.com', // 生产
-        //target: 'https://survey.zhongchebaolian.com', // 测试
+        //target: 'https://chakan.zhongchebaolian.com', // 生产
+        target: 'https://survey.zhongchebaolian.com', // 测试
         changeOrigin: true,
 
         // pathRewrite: {
@@ -39,8 +39,8 @@ module.exports = {
         // target: 'http://liangxing.furui.com',      // 个人服务器
         // target: 'http://luhongguang.furui.com',
         //target:'http://192.168.1.126:8080',
-        //target:'https://survey.zhongchebaolian.com', // 测试
-        target: 'https://chakan.zhongchebaolian.com', // 生产
+        target:'https://survey.zhongchebaolian.com', // 测试
+        //target: 'https://chakan.zhongchebaolian.com', // 生产
         // target: 'https://api.accidentx.zhongchebaolian.com', // 正式
         changeOrigin: true,
         // pathRewrite: {
